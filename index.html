@@ -1,136 +1,117 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Noctella – Smart Safety Bracelet</title>
-  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Noctella - Smart Safety Bracelet</title>
+
+   
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: black;
+        }
+    </style>
 </head>
 
-<body style="margin:0; overflow:hidden; background:black;">
+<body>
 
 <a-scene
-  vr-mode-ui="enabled: true"
-  webxr="optionalFeatures: hit-test, local-floor"
-  renderer="colorManagement: true; physicallyCorrectLights: true;"
->
+    background="color: black"
+    vr-mode-ui="enabled: true"
+    webxr="requiredFeatures: local-floor"
+    renderer="colorManagement: true; physicallyCorrectLights: true;"
+    cursor="rayOrigin: mouse">
 
-  <!-- Camera -->
-  <a-camera position="0 1.6 0"></a-camera>
+  
+    <a-entity camera look-controls wasd-controls position="0 1.6 0"></a-entity>
 
-  <!-- Lights -->
-  <a-light type="ambient" intensity="1"></a-light>
-  <a-light type="directional" position="1 2 1" intensity="0.8"></a-light>
+    <a-light type="ambient" intensity="1"></a-light>
+    <a-light type="directional" position="0 5 3" intensity="0.8"></a-light>
 
-  <!-- Title (Baby Pink) -->
-  <a-text
-    value="Noctella"
-    position="0 2.4 -2"
-    align="center"
-    color="#FFC0CB"
-    width="4"
-    shader="msdf">
-  </a-text>
+    <a-text 
+        value="NOCTELLA - Smart Safety Bracelet"
+        position="0 5 -6"
+        align="center"
+        color="#FFC0CB"
+        width="10"
+        font="https://cdn.aframe.io/fonts/Exo2Bold.fnt">
+    </a-text>
 
-  <!-- Tagline (Baby Pink) -->
-  <a-text
-    value="Confidence After Dark"
-    position="0 2.1 -2"
-    align="center"
-    color="#FFC0CB"
-    width="4"
-    shader="msdf">
-  </a-text>
 
-  <!-- Bracelet Model -->
-  <a-entity
-    id="bracelet"
-    gltf-model="bracelet.glb"
-    position="0 1 -2"
-    scale="0.5 0.5 0.5"
-    rotation="0 45 0"
-    animation="property: rotation; to: 0 405 0; loop: true; dur: 10000">
-  </a-entity>
+    <a-entity 
+        gltf-model="bracelet.glb"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+        position="0 1.6 -4"
+        scale="0.6 0.6 0.6"
+        animation="property: rotation;
+                   to: 0 360 0;
+                   loop: true;
+                   dur: 15000;
+                   easing: linear">
+    </a-entity>
 
-  <!-- SOS Hotspot -->
-  <a-sphere
-    id="sosBtn"
-    position="0 1.2 -2"
-    radius="0.05"
-    color="#ff3b3b"
-    opacity="0.9">
-  </a-sphere>
+   
+    <a-sphere id="sos"
+              position="-0.8 1.9 -4"
+              radius="0.08"
+              color="#FF4C4C">
+    </a-sphere>
 
-  <!-- GPS Hotspot -->
-  <a-sphere
-    id="gpsBtn"
-    position="0.2 1 -2"
-    radius="0.05"
-    color="#6C63FF"
-    opacity="0.9">
-  </a-sphere>
+    <a-sphere id="gps"
+              position="0.9 2 -4"
+              radius="0.08"
+              color="#4CAFFF">
+    </a-sphere>
 
-  <!-- Info Panel Background -->
-  <a-plane
-    id="infoPanel"
-    position="0 0.5 -1.5"
-    width="1.8"
-    height="0.6"
-    color="#1a1a1a"
-    opacity="0.95"
-    visible="false">
-  </a-plane>
+    <a-sphere id="gsm"
+              position="0 1.2 -4"
+              radius="0.08"
+              color="#00FF99">
+    </a-sphere>
 
-  <!-- Info Text -->
-  <a-text
-    id="infoText"
-    position="0 0.5 -1.49"
-    align="center"
-    color="#FFC0CB"
-    width="1.7"
-    visible="false"
-    value=""
-    shader="msdf">
-  </a-text>
+   
+    <a-plane
+        position="0 0.8 -6"
+        width="5"
+        height="1"
+        color="#111111"
+        opacity="0.9">
+    </a-plane>
+
+    <a-text 
+        id="infoText"
+        value="Click a sensor to explore features"
+        position="0 0 -3.9"
+        align="center"
+        color="#FFC0CB"
+        width="6"
+        font="https://cdn.aframe.io/fonts/Exo2Bold.fnt">
+    </a-text>
 
 </a-scene>
 
 <script>
-  const sos = document.querySelector('#sosBtn');
-  const gps = document.querySelector('#gpsBtn');
-  const panel = document.querySelector('#infoPanel');
-  const text = document.querySelector('#infoText');
+    const info = document.querySelector('#infoText');
 
-  sos.addEventListener('click', function () {
-
-    sos.setAttribute('animation', {
-      property: 'scale',
-      to: '1.5 1.5 1.5',
-      dur: 300,
-      dir: 'alternate',
-      loop: 4
+    document.querySelector('#sos').addEventListener('click', function () {
+        info.setAttribute('value', 'SOS Emergency Alert System Activated');
     });
 
-    panel.setAttribute('visible', true);
-    text.setAttribute('visible', true);
-    text.setAttribute('value',
-      'SOS Alert Activated! Emergency contacts notified instantly.');
-  });
-
-  gps.addEventListener('click', function () {
-
-    gps.setAttribute('animation', {
-      property: 'scale',
-      to: '1.5 1.5 1.5',
-      dur: 300,
-      dir: 'alternate',
-      loop: 4
+    document.querySelector('#gps').addEventListener('click', function () {
+        info.setAttribute('value', 'Real-Time GPS Tracking Enabled');
     });
 
-    panel.setAttribute('visible', true);
-    text.setAttribute('visible', true);
-    text.setAttribute('value',
-      'Real-time GPS tracking enabled for continuous safety monitoring.');
-  });
+    document.querySelector('#gsm').addEventListener('click', function () {
+        info.setAttribute('value', 'GSM Communication Module Integrated');
+    });
 </script>
 
 </body>
 </html>
+      
+
+
+
+   
