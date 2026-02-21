@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Noctella – Smart Safety Bracelet</title>
+  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+</head>
+
+<body style="margin:0; overflow:hidden; background:black;">
+
+<a-scene
+  vr-mode-ui="enabled: true"
+  webxr="optionalFeatures: hit-test, local-floor"
+  renderer="colorManagement: true; physicallyCorrectLights: true;"
+>
+
+  <!-- Camera -->
+  <a-camera position="0 1.6 0"></a-camera>
+
+  <!-- Lights -->
+  <a-light type="ambient" intensity="1"></a-light>
+  <a-light type="directional" position="1 2 1" intensity="0.8"></a-light>
+
+  <!-- Title (Baby Pink) -->
+  <a-text
+    value="Noctella"
+    position="0 2.4 -2"
+    align="center"
+    color="#FFC0CB"
+    width="4"
+    shader="msdf">
+  </a-text>
+
+  <!-- Tagline (Baby Pink) -->
+  <a-text
+    value="Confidence After Dark"
+    position="0 2.1 -2"
+    align="center"
+    color="#FFC0CB"
+    width="4"
+    shader="msdf">
+  </a-text>
+
+  <!-- Bracelet Model -->
+  <a-entity
+    id="bracelet"
+    gltf-model="bracelet.glb"
+    position="0 1 -2"
+    scale="0.5 0.5 0.5"
+    rotation="0 45 0"
+    animation="property: rotation; to: 0 405 0; loop: true; dur: 10000">
+  </a-entity>
+
+  <!-- SOS Hotspot -->
+  <a-sphere
+    id="sosBtn"
+    position="0 1.2 -2"
+    radius="0.05"
+    color="#ff3b3b"
+    opacity="0.9">
+  </a-sphere>
+
+  <!-- GPS Hotspot -->
+  <a-sphere
+    id="gpsBtn"
+    position="0.2 1 -2"
+    radius="0.05"
+    color="#6C63FF"
+    opacity="0.9">
+  </a-sphere>
+
+  <!-- Info Panel Background -->
+  <a-plane
+    id="infoPanel"
+    position="0 0.5 -1.5"
+    width="1.8"
+    height="0.6"
+    color="#1a1a1a"
+    opacity="0.95"
+    visible="false">
+  </a-plane>
+
+  <!-- Info Text -->
+  <a-text
+    id="infoText"
+    position="0 0.5 -1.49"
+    align="center"
+    color="#FFC0CB"
+    width="1.7"
+    visible="false"
+    value=""
+    shader="msdf">
+  </a-text>
+
+</a-scene>
+
+<script>
+  const sos = document.querySelector('#sosBtn');
+  const gps = document.querySelector('#gpsBtn');
+  const panel = document.querySelector('#infoPanel');
+  const text = document.querySelector('#infoText');
+
+  sos.addEventListener('click', function () {
+
+    sos.setAttribute('animation', {
+      property: 'scale',
+      to: '1.5 1.5 1.5',
+      dur: 300,
+      dir: 'alternate',
+      loop: 4
+    });
+
+    panel.setAttribute('visible', true);
+    text.setAttribute('visible', true);
+    text.setAttribute('value',
+      'SOS Alert Activated! Emergency contacts notified instantly.');
+  });
+
+  gps.addEventListener('click', function () {
+
+    gps.setAttribute('animation', {
+      property: 'scale',
+      to: '1.5 1.5 1.5',
+      dur: 300,
+      dir: 'alternate',
+      loop: 4
+    });
+
+    panel.setAttribute('visible', true);
+    text.setAttribute('visible', true);
+    text.setAttribute('value',
+      'Real-time GPS tracking enabled for continuous safety monitoring.');
+  });
+</script>
+
+</body>
+</html>
