@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Noctella - Smart Safety Bracelet</title>
 
-   
     <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
 
     <style>
@@ -25,12 +24,22 @@
     renderer="colorManagement: true; physicallyCorrectLights: true;"
     cursor="rayOrigin: mouse">
 
-  
+    <!-- Camera -->
     <a-entity camera look-controls wasd-controls position="0 1.6 0"></a-entity>
 
+    <!-- Lights -->
     <a-light type="ambient" intensity="1"></a-light>
     <a-light type="directional" position="0 5 3" intensity="0.8"></a-light>
 
+    <!-- Background Audio -->
+    <a-sound 
+        src="url(AUD-20260221-WA0021_ (online-audio-converter.com).mp3)" 
+        autoplay="true" 
+        loop="true" 
+        volume="0.5">
+    </a-sound>
+
+    <!-- Title Text -->
     <a-text 
         value="NOCTELLA - Smart Safety Bracelet"
         position="0 5 -6"
@@ -40,7 +49,7 @@
         font="https://cdn.aframe.io/fonts/Exo2Bold.fnt">
     </a-text>
 
-
+    <!-- Bracelet 3D Model -->
     <a-entity 
         gltf-model="bracelet.glb"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
         position="0 1.6 -4"
@@ -52,7 +61,7 @@
                    easing: linear">
     </a-entity>
 
-   
+    <!-- Sensor Spheres -->
     <a-sphere id="sos"
               position="-0.8 1.9 -4"
               radius="0.08"
@@ -71,7 +80,7 @@
               color="#00FF99">
     </a-sphere>
 
-   
+    <!-- Info Panel -->
     <a-plane
         position="0 0.8 -6"
         width="5"
@@ -110,8 +119,3 @@
 
 </body>
 </html>
-      
-
-
-
-   
